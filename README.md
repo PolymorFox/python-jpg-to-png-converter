@@ -12,7 +12,7 @@ Easily convert one or more JPG images to PNG format using this Python script.
 Install Pillow with pip:
 
 ```
-pip install pillow
+pip install -r requirements.txt
 ```
 
 ## Usage
