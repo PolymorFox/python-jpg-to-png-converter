@@ -23,11 +23,15 @@ To convert a single image or multiple images, run:
 python main.py --image <path_to_image1.jpg,path_to_image2.jpg,...> --destination <output_folder>
 ```
 
-- `<path_to_image1.jpg,path_to_image2.jpg,...>`: Comma-separated list of JPG image paths.
+- `<path_to_folder_with_jpgs,path_to_image1.jpg,path_to_image2.jpg,...>`: Comma-separated list of JPG image paths.
 - `<output_folder>`: Folder where converted PNG images will be saved.
 
-**Example:**
+**Examples:**
 
 ``` 
 python main.py --image photo1.jpg,photo2.jpg --destination converted_images
+```
+
+```
+python main.py --images path_to_images --destination converted_images
 ```

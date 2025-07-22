@@ -1,4 +1,5 @@
 import argparse
+import os
 from converter import convert_to_png
 
 parser = argparse.ArgumentParser()
@@ -15,11 +16,13 @@ elif args.destination == '':
     print("No save directory was specified, using default images/ directory")
     exit(1)
 
-if ',' not in args.image:
+if ',' not in args.image and args.image.endswith(".jpg"):
     images = []
     images.append(args.image)
 elif ',' in args.image:
     images = args.image.split(',')
+else:
+    images = args.image
 
 destination = args.destination
 
