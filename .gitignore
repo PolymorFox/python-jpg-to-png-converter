@@ -1,4 +1,5 @@
 venv/
 images/
+Images/
 *.jpg
 __pycache__/

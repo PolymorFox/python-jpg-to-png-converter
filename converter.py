@@ -2,55 +2,24 @@ from PIL import Image
 import os
 import shutil
 
-def convert_to_png(image_paths: list | str,save_directory: str):
-    save_location =os.path.abspath(save_directory)
-
-    if not os.path.exists(save_directory):
-        try:
-            os.mkdir("images")
-        except FileExistsError:
-            pass
-        save_location = os.path.abspath("images")
+def convert_to_png(image_path: str, save_path: str) -> None:
+    if not os.path.exists(save_path):
+        os.makedirs("Images",exist_ok=True)
+        save_directory = "Images"
     else:
-        try:
-            os.mkdir(save_directory)
-        except FileExistsError:
-            pass
-    if type(image_paths).__name__ == "list":
-        for image in image_paths:
-            if image.endswith(".png"):
-                print(f"Skipping {image}, already a png")
-                shutil.move(image, save_location)
-                continue
-        
-            try:
-                jpg_image = Image.open(image)
-                image_name = f"{image.split(".")[0]}.png"
-                jpg_image.save(image_name)
-                try:
-                    shutil.move(image_name,save_location)
-                except shutil.Error:
-                    pass
-                    continue
-                
+        save_directory = save_path
 
-            except FileNotFoundError:
-                print(f"Skipping image {image} as it doesn't exist")
-                continue
-    elif type(image_paths).__name__ == "str":
-        with os.scandir(image_paths) as iter:
-            for entry in iter:
-                if entry.is_dir():
-                    continue
-                elif entry.name.endswith(".png"):
-                    print(f"Skipping {entry.name}, already a png")
-                    shutil.move(entry.path, save_location)
-                elif entry.name.endswith(".jpg"):
-                    img = Image.open(entry.path)
-                    file_name = f"{os.path.splitext(entry.name)[0]}.png"
-                    img.save(file_name)
-                    shutil.move(file_name, save_location)
+    if image_path is None:
+        print("No images were provided")
+        exit(1)
+    elif image_path.endswith(".png"):
+        # Ignore images that already are .png
+        shutil.move(image_path,save_path)
+    else:
+        jpg_image = Image.open(image_path)
+        png_filename = f"{image_path.split(".")[0]}.png"
 
-
-
-
+        jpg_image.save(png_filename,format='PNG')
+        shutil.move(png_filename,save_directory)
+        jpg_image.close()
+    
